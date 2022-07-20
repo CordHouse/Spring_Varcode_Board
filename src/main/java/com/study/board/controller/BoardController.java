@@ -5,35 +5,35 @@ import com.study.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
 
-    @GetMapping("/board")
+    @GetMapping("/api/board")
     public ResponseEntity<?> getBoards(){
         return new ResponseEntity<>(boardService.getBoards(), HttpStatus.OK);
     }
 
-    @GetMapping("/board/{id}")
+    @GetMapping("/api/board/{id}")
     public ResponseEntity<?> getBoard(@PathVariable("id") Long id){
         return new ResponseEntity<>(boardService.getBoard(id), HttpStatus.OK);
     }
 
-    @PostMapping("/board")
+    @PostMapping("/api/board")
     public ResponseEntity<?> putBoard(@RequestBody Board board){
         return new ResponseEntity<>(boardService.putBoard(board), HttpStatus.CREATED);
     }
 
-    @PutMapping("/board/{id}")
+    @PutMapping("/api/board/{id}")
     public ResponseEntity<?> changeBoard(@PathVariable("id") Long id,@RequestBody Board updateBoard){
         return new ResponseEntity<>(boardService.changeBoard(id, updateBoard),HttpStatus.OK);
     }
 
-    @DeleteMapping("/board/{id}")
+    @DeleteMapping("/api/board/{id}")
     public ResponseEntity<?> deleteBoard(@PathVariable("id") Long id){
         boardService.deleteBoard(id);
         return new ResponseEntity<>(id+"번 게시물이 삭제 되었습니다.", HttpStatus.OK);
